@@ -1,10 +1,10 @@
 const fs = require('node:fs/promises');
 const os = require('node:os');
 const path = require('node:path');
-const puppeteer = require('puppeteer');
 const ffmpeg = require('fluent-ffmpeg');
 const ffmpegPath = require('ffmpeg-static');
 const ffprobePath = require('ffprobe-static');
+const { launchBrowser } = require('../core/puppeteer');
 
 function resolveBinaryPath(candidate) {
   if (typeof candidate === 'string') return candidate;
@@ -730,24 +730,14 @@ async function renderVideoToMp4(payload, outputPath, options = {}) {
   const validated = validateVideoRenderPayload(payload);
   logRenderEvent('payload validated', validated);
   logRenderEvent('starting Puppeteer');
-  const launchOptions = {
-    headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  };
-  const browser = await puppeteer.launch(launchOptions);
+  const renderStartMs = Date.now();
+  const maxRenderMs = validated.test_mode ? 90_000 : (options.timeoutMs || 240_000);
+  const browser = await launchBrowser({ protocolTimeout: maxRenderMs });
   let page;
   let tempDirectory;
   let ffmpegProcess;
   let tempFramesDirectory;
   let tempAudioPath = '';
-  const renderStartMs = Date.now();
-  const maxRenderMs = validated.test_mode ? 90_000 : (options.timeoutMs || 120_000);
   let timeoutHandle;
 
   try {

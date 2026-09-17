@@ -3,9 +3,9 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const express = require('express');
 const dotenv = require('dotenv');
-const puppeteer = require('puppeteer');
 const { renderPinterestTemplate } = require('./templates/pinterest-template');
-const { VideoRenderValidationError, renderVideoToMp4 } = require('./video-renderer');
+const { VideoRenderValidationError, renderVideoToMp4 } = require('./renderer/video-renderer');
+const { launchBrowser } = require('./core/puppeteer');
 
 dotenv.config({ path: path.join(__dirname, '.env') });
 
@@ -72,21 +72,6 @@ function buildPublicBaseUrl(request) {
   return `${protocol}://${host}`.replace(/\/$/, '');
 }
 
-async function getPuppeteerBrowser() {
-  const launchOptions = {
-    headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  };
-
-  return await puppeteer.launch(launchOptions);
-}
-
 app.get('/health', (_request, response) => {
   response.json({ status: 'ok', service: 'renderer' });
 });
@@ -118,7 +103,7 @@ app.post('/render', async (request, response, next) => {
     const html = renderPinterestTemplate(data);
 
     console.log(`Rendering pin for headline: "${safeFilenamePart(data.headline)}"`);
-    browser = await getPuppeteerBrowser();
+    browser = await launchBrowser();
     page = await browser.newPage();
     await page.setViewport({ width: 1000, height: 1500, deviceScaleFactor: 1 });
     await page.setDefaultNavigationTimeout(renderTimeoutMs);
