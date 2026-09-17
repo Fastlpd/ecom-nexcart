@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "npm install && npx puppeteer browsers install chrome",
-    "test": "node --test test/**/*.test.js"
+    "test": "node --test renderer/test/**/*.test.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
