@@ -33,9 +33,9 @@ function renderPinterestTemplate(data) {
     * { box-sizing: border-box; }
     html, body { margin: 0; width: 1000px; height: 1500px; }
     body {
-      background: #f7f3ee;
-      color: #17211f;
-      font-family: Arial, Helvetica, sans-serif;
+      background: #f4efe6;
+      color: #0f1715;
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
       overflow: hidden;
     }
     .pin {
@@ -44,24 +44,31 @@ function renderPinterestTemplate(data) {
       flex-direction: column;
       width: 1000px;
       height: 1500px;
-      padding: 70px 76px 64px;
+      padding: 75px 80px 70px;
       overflow: hidden;
-      background: linear-gradient(145deg, #fcfaf7 0%, #f1e9e1 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #ece2d5 100%);
     }
-    .accent { position: absolute; width: 430px; height: 430px; right: -130px; top: -145px; border-radius: 50%; background: #d8e5de; opacity: .78; }
-    .accent-two { position: absolute; width: 260px; height: 260px; left: -125px; bottom: 175px; border-radius: 50%; background: #ead6c5; opacity: .48; }
+    .accent { position: absolute; width: 480px; height: 480px; right: -140px; top: -160px; border-radius: 50%; background: #c5d8ce; opacity: .85; }
+    .accent-two { position: absolute; width: 320px; height: 320px; left: -140px; bottom: 140px; border-radius: 50%; background: #e8cbb5; opacity: .6; }
     .content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-    .brand { min-height: 34px; color: #437365; font-size: 25px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
-    .headline { max-width: 848px; margin-top: 50px; color: #17211f; font-size: clamp(58px, 7vw, 86px); font-weight: 800; line-height: .98; letter-spacing: -2px; overflow-wrap: anywhere; }
-    .subtitle { max-width: 760px; margin-top: 25px; color: #56635f; font-size: 30px; line-height: 1.28; overflow-wrap: anywhere; }
-    .product-wrap { display: flex; align-items: center; justify-content: center; height: 660px; margin: 38px 0 40px; border-radius: 34px; background: rgba(255,255,255,.65); box-shadow: 0 24px 55px rgba(63, 52, 41, .12); }
-    .product { width: 88%; height: 88%; object-fit: contain; }
+    
+    /* Bigger, bolder brand & typography */
+    .brand { min-height: 38px; color: #2e5c4e; font-size: 28px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; }
+    .headline { max-width: 840px; margin-top: 35px; color: #0b1311; font-size: 72px; font-weight: 900; line-height: 1.05; letter-spacing: -2px; overflow-wrap: anywhere; }
+    .subtitle { max-width: 800px; margin-top: 20px; color: #3b4d47; font-size: 34px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+    
+    /* Vibrant, high-contrast product container with image punch */
+    .product-wrap { display: flex; align-items: center; justify-content: center; height: 620px; margin: 35px 0 35px; border-radius: 28px; background: rgba(255,255,255,0.85); box-shadow: 0 20px 45px rgba(45, 35, 25, 0.15); border: 2px solid rgba(255,255,255,0.9); }
+    .product { width: 90%; height: 90%; object-fit: contain; filter: contrast(1.06) saturate(1.12); }
+    
     .details { display: flex; align-items: flex-end; justify-content: space-between; gap: 36px; }
-    .benefits { flex: 1; margin: 0; padding: 0; list-style: none; color: #34433e; font-size: 25px; line-height: 1.35; }
-    .benefits li { display: flex; gap: 14px; align-items: flex-start; margin: 11px 0; overflow-wrap: anywhere; }
-    .check { display: inline-flex; flex: 0 0 30px; align-items: center; justify-content: center; width: 30px; height: 30px; margin-top: 2px; border-radius: 50%; background: #437365; color: #fff; font-size: 19px; font-weight: 700; }
-    .price { color: #17211f; font-size: 48px; font-weight: 800; white-space: nowrap; }
-    .cta { align-self: flex-start; margin-top: auto; padding: 22px 40px; border-radius: 999px; background: #d96f4f; color: #fff; font-size: 28px; font-weight: 700; overflow-wrap: anywhere; }
+    .benefits { flex: 1; margin: 0; padding: 0; list-style: none; color: #1e2b27; font-size: 28px; font-weight: 600; line-height: 1.4; }
+    .benefits li { display: flex; gap: 16px; align-items: flex-start; margin: 12px 0; overflow-wrap: anywhere; }
+    
+    .check { display: inline-flex; flex: 0 0 36px; align-items: center; justify-content: center; width: 36px; height: 36px; margin-top: 2px; border-radius: 50%; background: #2e5c4e; color: #fff; font-size: 22px; font-weight: 800; box-shadow: 0 4px 10px rgba(46,92,78,0.3); }
+    .price { color: #0b1311; font-size: 52px; font-weight: 900; white-space: nowrap; }
+    
+    .cta { align-self: flex-start; margin-top: auto; padding: 24px 44px; border-radius: 999px; background: #c85a38; color: #fff; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; box-shadow: 0 10px 25px rgba(200,90,56,0.35); overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
